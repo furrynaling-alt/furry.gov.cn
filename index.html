@@ -24,7 +24,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== 动态背景层 ===== */
         .bg-canvas {
             position: fixed;
             top: 0;
@@ -39,7 +38,6 @@
                 #fcfcfd;
         }
 
-        /* ===== 粒子容器 ===== */
         #particles {
             position: fixed;
             top: 0;
@@ -50,7 +48,6 @@
             pointer-events: none;
         }
 
-        /* ===== 主容器 ===== */
         .container {
             position: relative;
             z-index: 1;
@@ -60,7 +57,6 @@
             padding: 10px 0 30px;
         }
 
-        /* ===== 顶部标题 ===== */
         .header {
             text-align: center;
             margin-bottom: 40px;
@@ -102,14 +98,6 @@
             background-clip: text;
         }
 
-        .header p {
-            color: #8a8a8a;
-            font-size: 15px;
-            font-weight: 400;
-            margin-top: 8px;
-            letter-spacing: 0.3px;
-        }
-
         .header .status-row {
             display: flex;
             align-items: center;
@@ -145,7 +133,6 @@
             }
         }
 
-        /* ===== 卡片网格 ===== */
         .card-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -163,9 +150,8 @@
             }
         }
 
-        /* ===== 卡片 ===== */
+        /* ===== 卡片容器（改用 div，不使用 a 标签） ===== */
         .card-link {
-            text-decoration: none;
             display: block;
             border-radius: 28px;
             overflow: hidden;
@@ -176,6 +162,8 @@
             border: 1px solid rgba(255, 220, 190, 0.20);
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
+            text-decoration: none;
+            color: inherit;
         }
 
         .card-link:active {
@@ -203,15 +191,16 @@
             transition: all 0.3s ease;
         }
 
-        /* 卡片背景图片（清晰无模糊） */
         .card-bg-1 {
             background-image: url('1.jpg');
         }
         .card-bg-2 {
             background-image: url('2.jpg');
         }
+        .card-bg-3 {
+            background-image: url('3.jpg');
+        }
 
-        /* ===== 遮罩层（仅用于提升文字可读性，完全保留图片清晰度） ===== */
         .card::before {
             content: '';
             position: absolute;
@@ -222,12 +211,9 @@
                     rgba(255, 248, 242, 0.55) 70%,
                     rgba(255, 245, 240, 0.85) 100%);
             z-index: 1;
-            /* 移除 backdrop-filter 以保持背景图片绝对清晰 */
         }
 
-        /* 悬停时不再添加模糊，保持清晰 */
         .card-link:hover .card::before {
-            /* 保持清晰，仅微调遮罩透明度 */
             background: linear-gradient(180deg,
                     rgba(255, 255, 255, 0.0) 0%,
                     rgba(255, 255, 255, 0.1) 30%,
@@ -235,7 +221,58 @@
                     rgba(255, 245, 240, 0.8) 100%);
         }
 
-        /* 卡片内容 */
+        /* ===== 复制按钮（仅Tor，文字） ===== */
+        .copy-link-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 20;
+            font-size: 13px;
+            font-weight: 500;
+            color: #7c3aed;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(160, 80, 255, 0.25);
+            border-radius: 20px;
+            padding: 4px 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            -webkit-tap-highlight-color: transparent;
+            font-family: inherit;
+            line-height: 1.4;
+            user-select: none;
+            pointer-events: auto;
+        }
+
+        .copy-link-btn:hover {
+            background: rgba(255, 255, 255, 0.92);
+            border-color: rgba(160, 80, 255, 0.50);
+            box-shadow: 0 4px 16px rgba(160, 80, 255, 0.12);
+            transform: scale(1.02);
+        }
+
+        .copy-link-btn:active {
+            transform: scale(0.94);
+        }
+
+        .copy-link-btn.copied {
+            color: #16a34a;
+            border-color: rgba(22, 163, 74, 0.30);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .card-link:not(.card-tor) .copy-link-btn {
+            display: none;
+        }
+
+        .card-tor .card-tag {
+            border-color: rgba(160, 80, 255, 0.30);
+            color: #7c3aed;
+            background: rgba(255, 255, 255, 0.60);
+        }
+
         .card-content {
             position: relative;
             z-index: 2;
@@ -277,15 +314,16 @@
         }
 
         .card-address {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 400;
             color: #3a3a3a;
             letter-spacing: 0.2px;
             opacity: 0.9;
             text-shadow: 0 1px 6px rgba(255, 255, 255, 0.30);
+            word-break: break-all;
+            line-height: 1.4;
         }
 
-        /* ===== 延迟信息 ===== */
         .latency-row {
             display: flex;
             align-items: center;
@@ -391,7 +429,6 @@
             white-space: nowrap;
         }
 
-        /* ===== 底部刷新 ===== */
         .footer-actions {
             display: flex;
             justify-content: center;
@@ -458,7 +495,6 @@
             font-weight: 400;
         }
 
-        /* ===== Toast 提示 ===== */
         .toast {
             position: fixed;
             bottom: 30px;
@@ -490,7 +526,6 @@
             margin-right: 8px;
         }
 
-        /* ===== 入场动画 ===== */
         .card-link {
             opacity: 0;
             transform: translateY(30px);
@@ -498,9 +533,12 @@
         }
 
         .card-link:nth-child(1) {
-            animation-delay: 0.12s;
+            animation-delay: 0.08s;
         }
         .card-link:nth-child(2) {
+            animation-delay: 0.16s;
+        }
+        .card-link:nth-child(3) {
             animation-delay: 0.24s;
         }
 
@@ -511,7 +549,6 @@
             }
         }
 
-        /* ===== 响应式微调 ===== */
         @media (max-width: 480px) {
             body {
                 padding: 12px;
@@ -524,7 +561,7 @@
                 font-size: 20px;
             }
             .card-address {
-                font-size: 13px;
+                font-size: 12px;
             }
             .latency-row {
                 flex-wrap: wrap;
@@ -552,9 +589,14 @@
                 white-space: normal;
                 max-width: 90%;
             }
+            .copy-link-btn {
+                font-size: 11px;
+                padding: 3px 12px;
+                top: 12px;
+                right: 12px;
+            }
         }
 
-        /* ===== 滚动条美化 ===== */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -569,7 +611,6 @@
             background: #d0c4ba;
         }
 
-        /* ===== 选中高亮 ===== */
         .card-link:focus-visible {
             outline: 3px solid #f57c3a;
             outline-offset: 2px;
@@ -578,20 +619,16 @@
 </head>
 <body>
 
-    <!-- ===== 背景层 ===== -->
     <div class="bg-canvas"></div>
     <canvas id="particles"></canvas>
 
-    <!-- ===== Toast ===== -->
     <div class="toast" id="toast">
         <span class="emoji">✅</span>
         <span id="toastMsg">已刷新延迟</span>
     </div>
 
-    <!-- ===== 主容器 ===== -->
     <div class="container">
 
-        <!-- 头部 -->
         <header class="header">
             <div class="header-badge">
                 ⚡ 中转通道 · 福瑞纳棂
@@ -608,11 +645,10 @@
             </div>
         </header>
 
-        <!-- 卡片网格 -->
         <div class="card-grid">
 
-            <!-- 卡片 1: 亚洲节点 -->
-            <a class="card-link" href="https://naling.net" target="_blank" rel="noopener noreferrer" data-url="https://naling.net" data-name="亚洲节点">
+            <!-- 卡片 1: 亚洲节点（普通 div，点击跳转） -->
+            <div class="card-link" data-url="https://naling.net" data-name="亚洲节点">
                 <div class="card card-bg-1">
                     <div class="card-content">
                         <div class="card-tag">
@@ -630,10 +666,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
 
-            <!-- 卡片 2: 福瑞纳棂 · 网站中转 -->
-            <a class="card-link" href="https://furrynaling.com" target="_blank" rel="noopener noreferrer" data-url="https://furrynaling.com" data-name="福瑞纳棂中转">
+            <!-- 卡片 2: 美国加州 -->
+            <div class="card-link" data-url="https://furrynaling.com" data-name="福瑞纳棂中转">
                 <div class="card card-bg-2">
                     <div class="card-content">
                         <div class="card-tag">
@@ -651,11 +687,33 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
+
+            <!-- 卡片 3: Tor 私享（仅此卡片有复制链接） -->
+            <div class="card-link card-tor" data-url="http://furrydreaaqem74wi4qkc2q3dx5oc6prvzuvevjke62kyphvkzihxsad.onion" data-name="Tor私享">
+                <div class="card card-bg-3">
+                    <!-- 复制链接按钮 -->
+                    <button class="copy-link-btn" type="button" data-copy="http://furrydreaaqem74wi4qkc2q3dx5oc6prvzuvevjke62kyphvkzihxsad.onion">复制链接</button>
+                    <div class="card-content">
+                        <div class="card-tag">
+                            <span class="icon">🧅</span> Tor 私享
+                        </div>
+                        <div class="card-title">Tor网络</div>
+                        <div class="card-address">furrydreaaqem74wi4qkc2q3dx5oc6prvzuvevjke62kyphvkzihxsad.onion</div>
+                        <div class="latency-row">
+                            <span class="latency-indicator">
+                                <span class="latency-dot loading" id="dot-2"></span>
+                                <span class="latency-value loading" id="latency-2">--</span>
+                                <span class="latency-unit">ms</span>
+                            </span>
+                            <span class="latency-status-text" id="status-2">检测中…</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
-        <!-- 底部 -->
         <div class="footer-actions">
             <button class="btn-refresh" id="btnRefresh">
                 <span class="icon-refresh">⟳</span>
@@ -696,7 +754,7 @@
                     this.speedX = (Math.random() - 0.5) * 0.25;
                     this.speedY = (Math.random() - 0.5) * 0.25;
                     this.opacity = Math.random() * 0.35 + 0.10;
-                    this.hue = 28 + Math.random() * 14; // 橙色系
+                    this.hue = 28 + Math.random() * 14;
                 }
                 update() {
                     this.x += this.speedX;
@@ -709,7 +767,6 @@
                     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                     ctx.fillStyle = `hsla(${this.hue}, 80%, 70%, ${this.opacity})`;
                     ctx.fill();
-                    // 光晕
                     if (this.radius > 2.5) {
                         ctx.shadowColor = `hsla(${this.hue}, 90%, 75%, 0.15)`;
                         ctx.shadowBlur = 12;
@@ -729,7 +786,6 @@
                     p.update();
                     p.draw();
                 });
-                // 连接线 (距离近的粒子)
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const dx = particles[i].x - particles[j].x;
@@ -750,7 +806,6 @@
             }
             animate();
 
-            // 窗口变化重置粒子位置
             window.addEventListener('resize', () => {
                 particles.forEach(p => {
                     p.x = Math.min(p.x, w);
@@ -760,12 +815,119 @@
         })();
 
         // ================================================================
-        //  2. 延迟测试逻辑
+        //  2. 卡片跳转（使用 div 替代 a 标签）
+        // ================================================================
+        document.querySelectorAll('.card-link').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // 如果点击的是复制按钮，不跳转
+                if (e.target.closest('.copy-link-btn')) return;
+                const url = this.dataset.url;
+                const name = this.dataset.name || '节点';
+                if (url) {
+                    showToast(`正在前往 ${name}`, '🚀');
+                    // 延迟一点点让 toast 显示，然后跳转
+                    setTimeout(() => {
+                        window.open(url, '_blank');
+                    }, 300);
+                }
+            });
+        });
+
+        // ================================================================
+        //  3. 复制功能（终极稳定版）
+        // ================================================================
+        // 直接使用 onclick 属性绑定，避免事件干扰
+        document.querySelectorAll('.copy-link-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                const text = this.getAttribute('data-copy');
+                if (!text) {
+                    showToast('没有可复制的内容', '❌');
+                    return;
+                }
+
+                // 方法1：使用 Clipboard API（现代浏览器）
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(text)
+                        .then(() => {
+                            showToast('已复制链接到剪贴板', '📋');
+                            setCopiedState(this);
+                        })
+                        .catch(() => {
+                            // 如果失败，使用终极备用方案
+                            ultimateFallbackCopy(text, this);
+                        });
+                } else {
+                    ultimateFallbackCopy(text, this);
+                }
+                return false;
+            });
+        });
+
+        // 终极备用方案：使用 input 元素复制，并确保在移动端生效
+        function ultimateFallbackCopy(text, btn) {
+            // 创建一个可见但透明的 input
+            const input = document.createElement('input');
+            input.value = text;
+            input.style.position = 'fixed';
+            input.style.left = '0';
+            input.style.top = '0';
+            input.style.width = '1px';
+            input.style.height = '1px';
+            input.style.opacity = '0.01';
+            input.style.zIndex = '9999';
+            input.setAttribute('readonly', 'readonly');
+            document.body.appendChild(input);
+            input.focus();
+            input.select();
+
+            try {
+                const success = document.execCommand('copy');
+                if (success) {
+                    showToast('已复制链接到剪贴板', '📋');
+                    setCopiedState(btn);
+                } else {
+                    // 如果 execCommand 也失败，则显示一个可手动复制的弹窗
+                    showManualCopyDialog(text);
+                }
+            } catch (err) {
+                showManualCopyDialog(text);
+            }
+            document.body.removeChild(input);
+        }
+
+        // 最后的兜底方案：弹出一个对话框，显示链接并让用户手动复制
+        function showManualCopyDialog(text) {
+            // 使用 alert 显示链接，用户可长按复制（在移动端有效）
+            // 但 alert 不能选择文本，我们用 prompt 替代
+            const userInput = prompt('复制失败，请手动复制以下链接：', text);
+            // 用户点击确定或取消无所谓，我们不再操作
+            if (userInput !== null) {
+                // 用户可能点击了确定，但未复制，我们不再提示
+            }
+            // 同时显示 toast
+            showToast('请手动复制链接', '📋');
+        }
+
+        function setCopiedState(btn) {
+            const original = btn.textContent;
+            btn.textContent = '已复制 ✓';
+            btn.classList.add('copied');
+            clearTimeout(btn._copyTimer);
+            btn._copyTimer = setTimeout(() => {
+                btn.textContent = original;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+
+        // ================================================================
+        //  4. 延迟测试逻辑（不可达显示）
         // ================================================================
         const nodes = [
             { id: 0, url: 'https://naling.net', name: '亚洲节点', dotId: 'dot-0', latencyId: 'latency-0', statusId: 'status-0' },
-            { id: 1, url: 'https://furrynaling.com', name: '福瑞纳棂', dotId: 'dot-1', latencyId: 'latency-1',
-            statusId: 'status-1' }
+            { id: 1, url: 'https://furrynaling.com', name: '福瑞纳棂', dotId: 'dot-1', latencyId: 'latency-1', statusId: 'status-1' },
+            { id: 2, url: 'http://furrydreaaqem74wi4qkc2q3dx5oc6prvzuvevjke62kyphvkzihxsad.onion', name: 'Tor私享', dotId: 'dot-2', latencyId: 'latency-2', statusId: 'status-2' }
         ];
 
         const dotEls = {};
@@ -773,7 +935,6 @@
         const statusEls = {};
         let testing = false;
 
-        // DOM 引用
         nodes.forEach(n => {
             dotEls[n.id] = document.getElementById(n.dotId);
             latencyEls[n.id] = document.getElementById(n.latencyId);
@@ -821,7 +982,6 @@
             const lat = latencyEls[id];
             const st = statusEls[id];
 
-            // 设置为加载状态
             if (dot) { dot.className = 'latency-dot loading'; }
             if (lat) { lat.textContent = '--';
                 lat.className = 'latency-value loading'; }
@@ -847,37 +1007,25 @@
                 elapsed = Math.round(performance.now() - startTime);
                 success = resp.ok || resp.type === 'opaque' || resp.status < 400;
             } catch (err) {
-                // 如果 HEAD 失败，尝试 GET (仅请求极小资源)
-                try {
-                    const controller2 = new AbortController();
-                    const timeoutId2 = setTimeout(() => controller2.abort(), 6000);
-                    const resp2 = await fetch(url, {
-                        method: 'GET',
-                        mode: 'cors',
-                        cache: 'no-store',
-                        signal: controller2.signal,
-                        headers: { 'Range': 'bytes=0-0' } // 只请求第一个字节
-                    });
-                    clearTimeout(timeoutId2);
-                    elapsed = Math.round(performance.now() - startTime);
-                    success = true;
-                } catch (err2) {
-                    // 彻底失败
-                    elapsed = -1;
-                    success = false;
-                }
+                elapsed = Math.round(performance.now() - startTime);
+                success = false;
             }
 
-            // 更新 UI
             if (success && elapsed > 0 && elapsed < 6000) {
-                let dotClass = 'green';
-                let statusText = '优秀';
-                if (elapsed > 300) { dotClass = 'orange';
-                    statusText = '良好'; }
-                if (elapsed > 800) { dotClass = 'red';
-                    statusText = '较慢'; }
-                if (elapsed > 2000) { dotClass = 'red';
-                    statusText = '高延迟'; }
+                let dotClass, statusText;
+                if (elapsed <= 300) {
+                    dotClass = 'green';
+                    statusText = '优秀';
+                } else if (elapsed <= 800) {
+                    dotClass = 'orange';
+                    statusText = '良好';
+                } else if (elapsed <= 2000) {
+                    dotClass = 'red';
+                    statusText = '较慢';
+                } else {
+                    dotClass = 'red';
+                    statusText = '高延迟';
+                }
                 setLatencyState(id, elapsed, statusText, dotClass);
                 return { id, success: true, latency: elapsed };
             } else {
@@ -890,9 +1038,8 @@
             if (testing) return;
             testing = true;
 
-            // 全局状态
             globalDot.className = 'status-dot';
-            globalText.textContent = '前测试所有节点…';
+            globalText.textContent = '正在测试所有节点…';
             btnRefresh.classList.add('spinning');
 
             const results = await Promise.all(nodes.map(n => testSingleNode(n.id, n.url)));
@@ -906,7 +1053,7 @@
                 if (showToastMsg) showToast(`全部 ${total} 个节点延迟已更新`, '📡');
             } else if (successCount > 0) {
                 globalDot.className = 'status-dot';
-                globalText.textContent = `⚠️ ${successCount}/${total} 个节点在线`;
+                globalText.textContent = `⚠️ ${successCount}/${total} 个节点在线，${total - successCount} 个不可达`;
                 if (showToastMsg) showToast(`${successCount}/${total} 个节点可访问`, '⚠️');
             } else {
                 globalDot.className = 'status-dot';
@@ -919,40 +1066,21 @@
         }
 
         // ================================================================
-        //  3. 自动测试 & 刷新按钮
+        //  5. 自动测试 & 刷新
         // ================================================================
-
-        // 页面加载后自动测试
         window.addEventListener('load', () => {
-            // 稍微延迟，让动画先播放
             setTimeout(() => {
                 testAllNodes(true);
             }, 600);
         });
 
-        // 刷新按钮
         btnRefresh.addEventListener('click', () => {
             if (testing) return;
             testAllNodes(true);
         });
 
         // ================================================================
-        //  4. 卡片点击跳转 (已用 a 标签实现)
-        //    额外：点击时记录并显示 toast
-        // ================================================================
-        document.querySelectorAll('.card-link').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const name = this.dataset.name || '节点';
-                const url = this.dataset.url || '#';
-                // 显示跳转提示（不阻止默认行为）
-                showToast(`正在前往 ${name}`, '🚀');
-                // 延迟一点点让 toast 显示
-                // 但不要阻塞跳转
-            });
-        });
-
-        // ================================================================
-        //  5. 键盘快捷键: R 刷新
+        //  6. 键盘快捷键 R
         // ================================================================
         document.addEventListener('keydown', (e) => {
             if (e.key === 'r' || e.key === 'R') {
@@ -964,11 +1092,10 @@
         });
 
         // ================================================================
-        //  6. 可见性变化时重新测试 (用户切回页面时)
+        //  7. 可见性变化重新测试
         // ================================================================
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible') {
-                // 如果超过30秒没有测试，自动重新测试
                 const lastTestTime = window._lastTestTime || 0;
                 if (Date.now() - lastTestTime > 30000 && !testing) {
                     testAllNodes(false);
@@ -976,7 +1103,6 @@
             }
         });
 
-        // 记录测试时间
         const origTestAll = testAllNodes;
         testAllNodes = async function(showMsg) {
             const result = await origTestAll(showMsg);
@@ -984,9 +1110,7 @@
             return result;
         };
 
-        // 暴露给全局方便调试
         window.testNodes = testAllNodes;
-
         console.log('✨ 福瑞纳棂导航已启动 | 按 R 键刷新延迟');
     </script>
 </body>
